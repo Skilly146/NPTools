@@ -6,15 +6,15 @@ from random import randrange
 
 ### Beginning of Configuration Section ###
 
-distance = 15      # Distance between each team (Group of players)
-players = 14       # Amount of players
-team_size = 2      # Amount of players on each team
-team_distance = 5  # Distance between each teammate
+distance = int()       # Distance between each team (Group of players)
+players = int()        # Amount of players
+team_size = int()      # Amount of players on each team
+team_distance = int()  # Distance between each teammate
 forbidden_coords = []
 # If your amount of players is the smallest possible number for a big triangle (Ex: 11 players
 # in a 15 player triangle) then you can forbid certain coordinates from being used as spawn
 # points. I suggest using the corner spots or chopping off the top
-random_spawning = False
+random_spawning = None
 # Boolean value determining if the program uses random or sequential spawning. Random spawning
 # can place home worlds on any point of the triangle, which creates more interesting maps
 # but could leave a player way out of the way. Sequential spawning starts near the base of

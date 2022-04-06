@@ -6,14 +6,14 @@ import sys
 
 ### Beginning of configuration section ###
 
-distance = 6  # Distance in light years between each player (Distance is along the circumference, not linear)
-players = 14  # Amount of players
-team_size = 2  # Amount of players on each team
-team_padding = 1.5
+distance = int()   # Distance in light years between each player (Distance is along the circumference, not linear)
+players = int()    # Amount of players
+team_size = int()  # Amount of players on each team
+team_padding = float()
 # Amount of extra units of variable DISTANCE between teams
 # (0 will have everyone DISTANCE apart, 1 will have everyone 2 DISTANCE apart,
 # 1.5 would be 2.5 units of DISTANCE)
-world_in_center = True
+world_in_center = None
 # Boolean asking if you want an extra world in the center of the map,
 # useful because if you only use the outer stars NP won't spawn stars in the center
 
