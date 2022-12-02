@@ -1,5 +1,11 @@
 import requests
+import json
 
+gameid,apikey=(None,None)
+with open("cred.json") as f:
+    cred = json.load(f)
+    gameid = cred['gameid']
+    apikey = cred['apikey']
 
 # Calls api then returns payload
 def call_api(game_number, code, api_version):
@@ -60,7 +66,7 @@ def star_stats(payload):
         print("Invalid star UID or name")
 
 
-scanning_data = call_api(5194985387065344, 'gHRUO4', '0.1')
+scanning_data = call_api(gameid, apikey, '0.1')
 needed_function = int(input("Would you like to (1), find a player's home world or (2), get a star's stats "))
 
 if needed_function == 1:

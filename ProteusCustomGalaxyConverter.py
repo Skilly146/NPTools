@@ -1,5 +1,11 @@
 import requests
+import json
 
+gameid,apikey=(None,None)
+with open("cred.json") as f:
+    cred = json.load(f)
+    gameid = cred['gameid']
+    apikey = cred['apikey']
 
 def call_api(game_number, api_key):
     api_version = '0.1'
@@ -10,9 +16,10 @@ def call_api(game_number, api_key):
     payload = requests.post(root, params).json()['scanning_data']
     return payload
 
+#Apply Credentials
+game_id = gameid
+key = apikey
 
-game_id = 5145734443433984
-key = 'sI1qlO'
 scanning_data = call_api(game_id, key)
 converted_dict = {"stars": []}
 key_order = ["uid", "name", "x", "y", "r", "ga", "e", "i", "s", "st", "puid", "wh"]

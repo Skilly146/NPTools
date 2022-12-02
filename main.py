@@ -1,9 +1,16 @@
 import checkStarCounts as csc
 from time import sleep
+import json
 
-# Info for the API call
-game_number = "5237130488709120"  # Found in URL of game
-code = "Y6E1Ae"                   # Can be generated in options menu
+gameid,apikey=(None,None)
+with open("cred.json") as f:
+    cred = json.load(f)
+    gameid = cred['gameid']
+    apikey = cred['apikey']
+    
+game_number = gameid  # Found in URL of game
+code = apikey         # Can be generated in options menu
+    
 api_version = "0.1"               #
 
 # Main loop that calls checkStarCounts to get the amount of stars on each team every tick

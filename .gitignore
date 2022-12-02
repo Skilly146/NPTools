@@ -24,3 +24,7 @@ venv/
 *.rar
 *.tar
 *.zip
+
+
+#Hide credential file
+cred.json
