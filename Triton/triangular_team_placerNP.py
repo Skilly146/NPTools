@@ -6,9 +6,9 @@ from random import randrange
 
 ### Beginning of Configuration Section ###
 
-distance = int()       # Distance between each team (Group of players)
-players = int()        # Amount of players
-team_size = int()      # Amount of players on each team
+distance = int()  # Distance between each team (Group of players)
+players = int()  # Amount of players
+team_size = int()  # Amount of players on each team
 team_distance = int()  # Distance between each teammate
 forbidden_coords = []
 # If your amount of players is the smallest possible number for a big triangle (Ex: 11 players
@@ -27,61 +27,61 @@ random_spawning = None
 if players % team_size == 0:
     num_teams = int(players / team_size)  # Calculates amount of teams for future reference
     base_coords = []  # Initializes list for center coordinates of each team
-    curCoords = [0, 0]  # Initializes object to store current coordinates for 'for' loop
+    cur_coords = [0, 0]  # Initializes object to store current coordinates for 'for' loop
 else:
     print("{p} players can not be split into teams of {s}".format(p=players, s=team_size))
     sys.exit()
 
 
 # Finds a triangle with a side length of X players that can fit all teams
-def calculate_triangle(neededPoints, sideLength):
-    x_delta, y_delta = sideLength / 2, ((3 ** 0.5) * sideLength) / 2
-    triSize = 1
+def calculate_triangle(needed_points, side_length):
+    x_delta, y_delta = side_length / 2, ((3 ** 0.5) * side_length) / 2
+    tri_size = 1
     while True:
-        triPoints = []
-        curX, curY = 0, 0
+        tri_points = []
+        cur_x, cur_y = 0, 0
         count = 1
-        testTri = triSize
-        while testTri > 0:
-            for point in range(testTri):
-                triPoints.append([curX, curY])
-                curX += x_delta * 2
-            curY += y_delta
-            curX = x_delta * count
+        test_tri = tri_size
+        while test_tri > 0:
+            for point in range(test_tri):
+                tri_points.append([cur_x, cur_y])
+                cur_x += x_delta * 2
+            cur_y += y_delta
+            cur_x = x_delta * count
             count += 1
-            testTri -= 1
-        if len(triPoints) >= neededPoints:
-            return triPoints
+            test_tri -= 1
+        if len(tri_points) >= needed_points:
+            return tri_points
         else:
-            triSize += 1
+            tri_size += 1
 
 
 # Calls CALCULATE_TRIANGLE to create the complete triangle
-totalPoints = calculate_triangle(num_teams, distance)
+total_points = calculate_triangle(num_teams, distance)
 
-forbidTestPoints = totalPoints.copy()
+forbid_test_points = total_points.copy()
 # Removes any points from totalPoints if they are in the FORBIDDEN_COORDS list
-for point in forbidTestPoints:
+for point in forbid_test_points:
     if point in forbidden_coords:
-        totalPoints.remove(point)
+        total_points.remove(point)
 
-spawnPoints = []
+spawn_points = []
 if random_spawning:
     # Chooses NUM_TEAMS amount of random coordinates from totalPoints to use as spawn positions
     for team in range(num_teams):
-        i = randrange(0, len(totalPoints))
-        spawnPoints.append(totalPoints[i])
-        totalPoints.pop(i)
+        i = randrange(0, len(total_points))
+        spawn_points.append(total_points[i])
+        total_points.pop(i)
 else:
     # appends the first NUM_TEAMS amount of coordinates from totalPoints to spawnPoints
     for team in range(num_teams):
-        spawnPoints.append(totalPoints[team])
+        spawn_points.append(total_points[team])
 
-groupedPoints = spawnPoints.copy()
+grouped_points = spawn_points.copy()
 # Adds an extra spawn point TEAM_DISTANCE away from each original point
-for team in spawnPoints:
+for team in spawn_points:
     x, y = team[0] + team_distance, team[1]
-    groupedPoints.append([x, y])
+    grouped_points.append([x, y])
 
 # Prints completed list in compatible format of NP, just copy and paste
-print(groupedPoints)
+print(grouped_points)

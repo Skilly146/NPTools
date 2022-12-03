@@ -1,14 +1,4 @@
-import requests
-
-
-# Calls api then returns payload
-def call_api(game_number, code, api_version):
-    root = "https://np.ironhelmet.com/api"
-    params = {"game_number": game_number,
-              "code": code,
-              "api_version": api_version}
-    payload = requests.post(root, params).json()['scanning_data']
-    return payload
+from utils import call_api
 
 
 # Takes a game payload and targeted players alias and returns home world UID and in game name

@@ -1,14 +1,4 @@
-import requests
-
-
-def call_api(game_number, api_key):
-    api_version = '0.1'
-    root = "https://np.ironhelmet.com/api"
-    params = {"game_number": game_number,
-              "code": api_key,
-              "api_version": api_version}
-    payload = requests.post(root, params).json()['scanning_data']
-    return payload
+from utils import call_api
 
 
 game_id = 5145734443433984

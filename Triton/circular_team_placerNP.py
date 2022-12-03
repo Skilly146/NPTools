@@ -36,25 +36,25 @@ def world_placer(angle, radius):
 
 radians = pi / ((num_teams * (team_size + team_padding)) / 2)
 # Determines angular distance between each home world, including padding
-totalSpaces = int((2 * pi) / (pi / ((num_teams * (team_size + team_padding)) / 2)))
+total_spaces = int((2 * pi) / (pi / ((num_teams * (team_size + team_padding)) / 2)))
 # Determines total amount of home worlds and padding spaces
-homeWorlds = []  # Initializes list of home world coordinates
-curAngle = 0  # Initializes variable to store current angle around the circle
+home_worlds = []  # Initializes list of home world coordinates
+cur_angle = 0  # Initializes variable to store current angle around the circle
 
 # for every player, determine if current player is start of new team, if so then
 # add TEAM_PADDING + RADIANS so there is spacing between players,
 # and finally add home world coordinates for each player in team
 for world in range(players):
     if world % team_size == 0:
-        curAngle += (team_padding*radians) + radians
-        homeWorlds.append(world_placer(curAngle, map_radius))
+        cur_angle += (team_padding * radians) + radians
+        home_worlds.append(world_placer(cur_angle, map_radius))
     else:
-        curAngle += radians
-        homeWorlds.append(world_placer(curAngle, map_radius))
+        cur_angle += radians
+        home_worlds.append(world_placer(cur_angle, map_radius))
 
 # Decides to add an extra coordinate in the center using world_in_center variable from configuration
 if world_in_center:
-    homeWorlds.append([0 + 40, 0 + 40])
+    home_worlds.append([0 + 40, 0 + 40])
 
 # Prints completed homeWorlds list in compatible format with NP
-print(homeWorlds)
+print(home_worlds)

@@ -1,5 +1,7 @@
 # Don't track content of these folders
 venv/
+game_data/
+test.py
 
 # Compiled source #
 ###################
@@ -8,8 +10,6 @@ venv/
 *.dll
 *.exe
 *.o
-*.so
-
 *.so
 
 # Packages #
