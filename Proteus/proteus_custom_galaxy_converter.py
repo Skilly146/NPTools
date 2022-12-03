@@ -1,9 +1,9 @@
-from utils import call_api
+import utils
 
 
-game_id = 5145734443433984
-key = 'sI1qlO'
-scanning_data = call_api(game_id, key)
+game_name = ''
+game_number, api_key = utils.credentials(game_name)
+scanning_data = utils.call_api(game_number, api_key)
 converted_dict = {"stars": []}
 key_order = ["uid", "name", "x", "y", "r", "ga", "e", "i", "s", "st", "puid", "wh"]
 for star in scanning_data["stars"]:

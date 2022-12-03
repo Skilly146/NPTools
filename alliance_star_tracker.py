@@ -1,11 +1,6 @@
 import sys
-from utils import call_api
+import utils
 from time import sleep
-
-# Info for the API call
-game_number = "5237130488709120"  # Found in URL of game
-code = "Y6E1Ae"                   # Can be generated in options menu              #
-
 
 def prenamed_teams(payload):
     list_teams = []  # index is puid and value is what team they are
@@ -56,8 +51,10 @@ def list_by_score(score_teams, goal):
 
 # Main loop that calls checkStarCounts to get the amount of stars on each team every tick
 while True:
+    game_name = ''
+    game_number, api_key = utils.credentials(game_name)
     # Calls api to get payload
-    scanning_data = call_api(game_number, code)
+    scanning_data = utils.call_api(game_number, api_key)
     goal_stars = scanning_data['stars_to_win']
     print(scanning_data['tick'])
     # returns list of each player and what team they are on, input is payload

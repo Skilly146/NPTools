@@ -1,11 +1,14 @@
 import requests
 import random
 import math
+import json
+import os.path
 
 
 # Calls api then returns payload
 def call_api(game_number, api_key=None):
     api_version = '0.1'
+    api_output = None
     if api_key:
         root = "https://np.ironhelmet.com/api"
         params = {"game_number": game_number,
@@ -15,6 +18,11 @@ def call_api(game_number, api_key=None):
     else:
         root = "http://nptriton.cqproject.net/game/{}/full".format(game_number)
         api_output = requests.post(root).json()
+    if not api_output:
+        with open('game_data/game_name_to_number_converter.json') as f:
+            converter_dict = json.load(f)
+        with open('game_data/{}.json'.format(converter_dict[str(game_number)])) as f:
+            api_output = json.load(f)
     return api_output
 
 
@@ -309,3 +317,33 @@ def create_player_stars_random_splatter(universe, hs, hsd, spp, kind, ss):
         # if add_star_ok:
 
     return player_stars
+
+
+# Find credentials for given game from credentials.json
+def credentials(game_name):
+    with open('game_data/credentials.json', 'r') as f:
+        creds = json.load(f)[game_name]
+        game_number = creds['game_num']
+        api_key = creds['api_key']
+        return game_number, api_key
+
+
+# Add new game credentials to credentials.json file,
+# also used to check if a game's creds are stored already
+def add_new_credentials(game_number, api_key=None):
+    name = call_api(game_number, api_key)['name'].lower().replace(' ', '_')
+    if not os.path.exists('game_data/credentials.json'):
+        with open('game_data/credentials.json', 'x') as f:
+            blank_json = {}
+            json.dump(blank_json, f)
+    with open('game_data/credentials.json') as f:
+        cred_json = json.load(f)
+    if name not in cred_json:
+        cred_json[name] = {'game_num': game_number, 'api_key': None}
+        if api_key:
+            cred_json[name]['api_key'] = api_key
+        with open('game_data/credentials.json', 'w') as f:
+            json.dump(cred_json, f, indent=4)
+        return cred_json[name]
+    else:
+        return None
