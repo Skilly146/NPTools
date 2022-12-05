@@ -23,6 +23,7 @@ def call_api(game_number, api_key=None):
             converter_dict = json.load(f)
         with open('game_data/{}.json'.format(converter_dict[str(game_number)])) as f:
             api_output = json.load(f)
+            print('online call failed')
     return api_output
 
 
@@ -322,7 +323,7 @@ def create_player_stars_random_splatter(universe, hs, hsd, spp, kind, ss):
 # Find credentials for given game from credentials.json
 def credentials(game_name):
     with open('game_data/credentials.json', 'r') as f:
-        creds = json.load(f)[game_name]
+        creds = json.load(f)[game_name.lower().replace(' ', '_')]
         game_number = creds['game_num']
         api_key = creds['api_key']
         return game_number, api_key
